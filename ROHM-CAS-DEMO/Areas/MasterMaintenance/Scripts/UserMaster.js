@@ -2,7 +2,9 @@
 
     $(document).ready(function () {
         const user = $U();
-        user.populateData();
+        user.userTable = user.drawUserTable();
+        user.populateData('/MasterMaintenance/UserMaster/PopulateData');
+
         $("#btn_add").click(function () {
             user.addUser();
         });
@@ -14,19 +16,19 @@
         });
         $("#frm_User").on("submit", function (e) {
             e.preventDefault();
-            user.saveUser();
+            user.saveUser($('#frm_User').serializeArray());
         });
         $('#tbl_users tbody').on('click', 'tr', function () {
             user.en_dis_ableUserRow($(this));
         });
         $('#btn_edit').click(function () {
-            user.editUserData();
+            user.editUserData('/MasterMaintenance/UserMaster/GetUserDetails');
         });
         $('#btn_delete').click(function () {
             user.msg = "Are you sure you want to delete this user?";
             user.confirmAction().then(function (approve) {
                 if (approve)
-                    user.deleteUserData();
+                    user.deleteUserData('/MasterMaintenance/UserMaster/DeleteUser');
             });
         });
         $('#tblDD').on("click", ".btn-remove", function () {

@@ -1,0 +1,183 @@
+﻿@{
+    ViewBag.Title = "User Master";
+    ViewBag.iconName = "fa fa-users";
+    Layout = "~/Views/Shared/MainLayout/_MainLayout.cshtml";
+}
+@section css{
+    @Styles.Render("~/UserMaster-CSS")
+}
+<div class="portlet box blue main-container">
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-6">
+                <div class="actions">
+                    <div class="row">
+                        <div class="mb-1 col-sm-4">
+                            <button id="btn_add" data-toggle="modal" href="#" class="btn btn-sm btn-block green">
+                                <i class="fa fa-plus"></i> Add
+                            </button>
+                        </div>
+                        <div class="mb-1 col-sm-4">
+                            <button id="btn_edit" disabled href="#" class="btn btn-sm btn-block yellow">
+                                <i class="fa fa-pencil"></i> Edit
+                            </button>
+                        </div>
+                        <div class="mb-1 col-sm-4">
+                            <button id="btn_delete" disabled href="#" class="btn btn-sm btn-block red">
+                                <i class="fa fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="form-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive main-tablelist-container" id="div-user-container">
+                        <table class="table table-bordered table-striped table-hover tbl-result" id="tbl_users"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-modal-lg in" id="mdl_user_input" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form method="post" id="frm_User" data-parsley-validate autocomplete="off">
+                <div class="modal-header bg-blue-madison">
+                    <button type="button" class="close closeBtn" id="closeBtn" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 id="mdl_user_title" class="modal-title">Add User</h4>
+                </div>
+
+                <div class="modal-body" id="div-create-user">
+                    <div class="tabbable-custom ">
+                        <ul class="nav nav-tabs ">
+                            <li class="active">
+                                <a href="#UserInfo" data-toggle="tab" aria-expanded="true"> User Info </a>
+                            </li>
+                            <li class="">
+                                <a href="#modules" data-toggle="tab" aria-expanded="false"> Modules </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="UserInfo">
+                                <div class="row">
+                                    <input type="hidden" name="ID" id="ID" class="input">
+
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-sm mb-1">
+                                            <label class="input-group-addon" style="width:132px;" for="UserID">UserID <span class="text-danger">*</span> </label>
+                                            <input type="text" name="UserID" id="UserID" class="form-control input" required data-parsley-errors-container="#err-UserID" autocomplete="off">
+                                        </div>
+                                        <div id="err-UserID"></div>
+
+                                    </div>
+                                    <!--/span-->
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-sm mb-1">
+                                            <label class="input-group-addon" for="Password" style="width:132px;">Password <span class="text-danger">*</span> </label>
+                                            <input type="password" name="Password" id="Password" class="form-control input" required data-parsley-errors-container="#err-Password" autocomplete="off">
+                                        </div>
+                                        <div id="err-Password"></div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-sm mb-1">
+                                            <label class="input-group-addon" for="FirstName" style="width:132px;">FirstName <span class="text-danger">*</span> </label>
+                                            <input type="text" name="FirstName" id="FirstName" class="form-control input" required data-parsley-errors-container="#err-FirstName" autocomplete="off">
+                                        </div>
+                                        <div id="err-FirstName"></div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-sm mb-1">
+                                            <label class="input-group-addon" for="MiddleName" style="width:132px;">MiddleName</label>
+                                            <input type="text" name="MiddleName" id="MiddleName" class="form-control input" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-sm mb-1">
+                                            <label class="input-group-addon" for="LastName" style="width:132px;">LastName <span class="text-danger">*</span> </label>
+                                            <input type="text" name="LastName" id="LastName" class="form-control input" required data-parsley-errors-container="#err-LastName" autocomplete="off">
+                                        </div>
+                                        <div id="err-LastName"></div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-sm mb-1">
+                                            <label class="input-group-addon" for="AccessType" style="width:132px;">Access Type <span class="text-danger">*</span> </label>
+                                            <select class="form-control input" id="AccessType" name="AccessType" placeholder="Currency To Exchange" aria-describedby="lblCurrencyToExchange" required data-parsley-errors-container="#err-AccessType">
+                                                <option value="">--Please Select--</option>
+                                                <option value="1">System Admin</option>
+                                                <option value="2">Admin</option>
+                                                <option value="3">Production</option>
+                                                <option value="4">TestDev</option>
+                                            </select>
+                                        </div>
+                                        <div id="err-AccessType"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-group input-group-sm mb-1">
+                                            <label class="input-group-addon" for="REPIDiv" style="width:132px;">Division <span class="text-danger">*</span> </label>
+                                            <select name="REPIDiv" id="REPIDiv" class="form-control input" required data-parsley-errors-container="#err-REPIDiv"></select>
+                                        </div>
+                                        <div id="err-REPIDiv"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="modules">
+                                <div class="modal-body div-resize-text" id="div-create-user">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input type="hidden" id="ModuleID" name="ModuleID" class="input" required />
+                                            <table class="table table-bordered table-striped table-condensed tbl-result" id="tblDD">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <select class="form-control modules input-sm input" id="modID_0"></select>
+                                                        </td>
+                                                        <td class="td-action-button-container"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-1 col-sm-3 col-md-2">
+                                            <button id="btn_add_row" type="button" class="btn btn-sm btn-block green "><span class="fa fa-plus"></span> Add Row</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="mb-1 col-sm-offset-6 col-sm-3">
+                            <button id="btn_save" type="submit" class="btn btn-sm btn-block btn-primary"><span class="fa fa-save"></span> Save changes</button>
+                        </div>
+                        <div class="mb-1 col-sm-3">
+                            <button type="button" id="btn_user_mater_modal_closed" class="btn btn-sm btn-block red closeBtn" data-dismiss="modal"><span class="fa fa-times"></span> Close</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+@section scripts{
+    @Scripts.Render("~/UserMaster-JS")
+}
+
+

@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+
+}
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+
+            </div>
+            <div class="panel-body">
+                <a href="@Url.Action("Index", "MasterMaintenanceDashboard", new { area = "MasterMaintenance" })" class="btn btn-block btn-primary" id="master_maintenance">Master Maintenance</a>
+                <a href="@Url.Action("Index", "CPSDashboard", new { area = "CPS" })" class="btn btn-block btn-primary">CPS</a>
+                <a href="@Url.Action("Index", "InvoiceFixDashboard", new { area = "InvoiceFix" })" class="btn btn-block btn-primary">MCR Invoice Fix</a>
+                <a href="@Url.Action("Index", "DebitCreditDashboard", new { area = "DebitCredit" })" class="btn btn-block btn-primary">Debit Credit</a>
+                <a href="@Url.Action("Index", "CentralizedInvoiceDashboard", new { area = "CentralizedInvoice" })" class="btn btn-block btn-primary">Centralized Invoice</a>
+                <a href="@Url.Action("Index", "ConsolidatedInvoiceDashboard", new { area = "ConsolidatedInvoice" })" class="btn btn-block btn-primary">Consolidated Invoice</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,270 @@
+﻿<div class="page-sidebar-wrapper">
+    <div class="page-sidebar navbar-collapse collapse">
+        <ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+            <li class="sidebar-toggler-wrapper hide">
+                <div class="sidebar-toggler"> </div>
+            </li>
+            @if (Request.RawUrl.Contains("/CentralizedInvoice/"))
+            {
+                <li class="nav-item start ">
+                    <a href="/" class="nav-link sys-name">
+                        <i class="fa fa-backward"></i>
+                        <span class="title">Centralized Invoice</span>
+                    </a>
+                </li>
+                <li class="li-menu-sepa">
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/CentralizedInvoice/CentralizedInvoiceDashboard") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "CentralizedInvoiceDashboard", new { area = "CentralizedInvoice" })" class="nav-link">
+                        <i class="fa fa-dashboard"></i>
+                        <span class="title">Dashboard</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/CentralizedInvoice/Invoice") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "Invoice", new { area = "CentralizedInvoice" })" class="nav-link">
+                        <i class="fa fa-file-text"></i>
+                        <span class="title">Invoice</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+            }
+            @if (Request.RawUrl.Contains("/ConsolidatedInvoice/"))
+            {
+                <li class="nav-item start ">
+                    <a href="/" class="nav-link sys-name">
+                        <i class="fa fa-backward"></i>
+                        <span class="title">Consolidated Invoice</span>
+                    </a>
+                </li>
+                <li class="li-menu-sepa">
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/ConsolidatedInvoice/ConsolidatedInvoiceDashboard") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "ConsolidatedInvoiceDashboard", new { area = "ConsolidatedInvoice" })" class="nav-link">
+                        <i class="fa fa-dashboard"></i>
+                        <span class="title">Dashboard</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/ConsolidatedInvoice/ProcessSalesInvoice") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "ProcessSalesInvoice", new { area = "ConsolidatedInvoice" })" class="nav-link">
+                        <i class="fa fa-file-text"></i>
+                        <span class="title">Process Sales Invoice</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/ConsolidatedInvoice/ViewSalesInvoice") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "ViewSalesInvoice", new { area = "ConsolidatedInvoice" })" cla class="nav-link">
+                        <i class="fa fa-list"></i>
+                        <span class="title">View Sales Invoice</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/ConsolidatedInvoice/SalesBookGeneration") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "SalesBookGeneration", new { area = "ConsolidatedInvoice" })" cla class="nav-link">
+                        <i class="fa fa-book"></i>
+                        <span class="title">Sales Book Generation</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+            }
+            @if (Request.RawUrl.Contains("/CPS/"))
+            {
+                <li class="nav-item start ">
+                    <a href="/" class="nav-link sys-name">
+                        <i class="fa fa-backward"></i>
+                        <span class="title">CPS</span>
+                    </a>
+                </li>
+                <li class="li-menu-sepa">
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/CPS/CPSDashboard") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "CPSDashboard", new { area = "CPS" })" class="nav-link">
+                        <i class="fa fa-dashboard"></i>
+                        <span class="title">Dashboard</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/CPS/DataInterface") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "DataInterface", new { area = "CPS" })" class="nav-link">
+                        <i class="fa fa-area-chart"></i>
+                        <span class="title">Data Interface</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/CPS/InvoicePrinting") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "InvoicePrinting", new { area = "CPS" })" class="nav-link">
+                        <i class="fa fa-file-text-o"></i>
+                        <span class="title">Invoice Printing</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+            }
+            @if (Request.RawUrl.Contains("/DebitCredit/"))
+            {
+                <li class="nav-item start ">
+                    <a href="/" class="nav-link sys-name">
+                        <i class="fa fa-backward"></i>
+                        <span class="title">Debit Credit</span>
+                    </a>
+                </li>
+                <li class="li-menu-sepa">
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/DebitCredit/DebitCreditDashboard") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "DebitCreditDashboard", new { area = "DebitCredit" })" class="nav-link">
+                        <i class="fa fa-dashboard"></i>
+                        <span class="title">Dashboard</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item @((Request.RawUrl.Contains("/DebitCredit/DebitRequest") || Request.RawUrl.Contains("/DebitCredit/CreditRequest")) ? "active open" : "") ">
+                    <a href="javascript:;" class="nav-link nav-toggle">
+                        <i class="fa fa-exchange"></i>
+                        <span class="title">Create Request</span>
+                        <span class="arrow  @((Request.RawUrl.Contains("/DebitCredit/DebitRequest") || Request.RawUrl.Contains("/DebitCredit/CreditRequest")) ? "open" : "") "></span>
+                        <span class="selected"></span>
+                    </a>
+                    <ul class="sub-menu" style="display:  @((Request.RawUrl.Contains("/DebitCredit/DebitRequest") || Request.RawUrl.Contains("/DebitCredit/CreditRequest")) ? "" : "none") ;">
+                        <li class="nav-item @((Request.RawUrl.Contains("/DebitCredit/DebitRequest")) ? "active open" : "") ">
+                            <a href="@Url.Action("Index", "DebitRequest", new { area = "DebitCredit" })" class="nav-link ">
+                                <span class="glyphicon glyphicon-credit-card"> </span>
+                                <span class="title">Debit Request Admin</span>
+                            </a>
+                        </li>
+                        <li class="nav-item @((Request.RawUrl.Contains("/DebitCredit/DebitRequestProduction")) ? "active open" : "") ">
+                            <a href="@Url.Action("Index", "DebitRequestProduction", new { area = "DebitCredit" })" class="nav-link ">
+                                <span class="glyphicon glyphicon-credit-card"> </span>
+                                <span class="title">Debit Request Production</span>
+                            </a>
+                        </li>
+                        <li class="nav-item @((Request.RawUrl.Contains("/DebitCredit/DebitRequestTestDev")) ? "active open" : "") ">
+                            <a href="@Url.Action("Index", "DebitRequestTestDev", new { area = "DebitCredit" })" cl class="nav-link ">
+                                <span class="glyphicon glyphicon-credit-card"> </span>
+                                <span class="title">Debit Request Test Dev</span>
+                            </a>
+                        </li>
+                        <li class="nav-item @((Request.RawUrl.Contains("/DebitCredit/CreditRequest")) ? "active open" : "") ">
+                            <a href="@Url.Action("Index", "CreditRequest", new { area = "DebitCredit" })" class="nav-link ">
+                                <i class="fa fa-credit-card"></i>
+                                <span class="title">Credit Request Admin</span>
+                            </a>
+                        </li>
+                        <li class="nav-item @((Request.RawUrl.Contains("/DebitCredit/CreditRequestProduction")) ? "active open" : "") ">
+                            <a href="@Url.Action("Index", "CreditRequestProduction", new { area = "DebitCredit" })" class="nav-link ">
+                                <i class="fa fa-credit-card"></i>
+                                <span class="title">Credit Request Production</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/DebitCredit/RequestApptoval") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "RequestApptoval", new { area = "DebitCredit" })" class="nav-link">
+                        <i class="fa fa-thumbs-up"></i>
+                        <span class="title">Request Apptoval</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/DebitCredit/ProcessedRequest") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "ProcessedRequest", new { area = "DebitCredit" })" class="nav-link">
+                        <i class="fa fa-retweet"></i>
+                        <span class="title">Processed Request</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+            }
+            @if (Request.RawUrl.Contains("/InvoiceFix/"))
+            {
+                <li class="nav-item start ">
+                    <a href="/" class="nav-link sys-name">
+                        <i class="fa fa-backward"></i>
+                        <span class="title">Invoice Fix</span>
+                    </a>
+                </li>
+                <li class="li-menu-sepa">
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/InvoiceFix/InvoiceFixDashboard") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "InvoiceFixDashboard", new { area = "InvoiceFix" })" class="nav-link">
+                        <i class="fa fa-dashboard"></i>
+                        <span class="title">Dashboard</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/InvoiceFix/AddInvoice") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "AddInvoice", new { area = "InvoiceFix" })" cl class="nav-link">
+                        <i class="fa fa-plus-square-o"></i>
+                        <span class="title">Add Invoice</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+
+                <li class="nav-item @(Request.RawUrl.Contains("/InvoiceFix/ManageInvoice") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "ManageInvoice", new { area = "InvoiceFix" })" class="nav-link">
+                        <i class="glyphicon glyphicon-list-alt"></i>
+                        <span class="title">Manage Invoice</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+            }
+            @if (Request.RawUrl.Contains("/MasterMaintenance/"))
+            {
+                <li class="nav-item start ">
+                    <a href="/" class="nav-link sys-name">
+                        <i class="fa fa-backward"></i>
+                        <span class="title">Master Maintenance</span>
+                    </a>
+                </li>
+                <li class="li-menu-sepa">
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/MasterMaintenance/MasterMaintenanceDashboard") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "MasterMaintenanceDashboard", new { area = "MasterMaintenance" })" class="nav-link">
+                        <i class="fa fa-dashboard"></i>
+                        <span class="title">Dashboard</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/MasterMaintenance/UserMaster") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "UserMaster", new { area = "MasterMaintenance" })" class="nav-link">
+                        <i class="fa fa-users"></i>
+                        <span class="title">User Master</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/MasterMaintenance/BuyerMaster") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "BuyerMaster", new { area = "MasterMaintenance" })" class="nav-link">
+                        <i class="glyphicon glyphicon-briefcase"></i>
+                        <span class="title">Buyer Master</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/MasterMaintenance/ConsigneeMaster") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "ConsigneeMaster", new { area = "MasterMaintenance" })" class="nav-link">
+                        <i class="fa fa-user"></i>
+                        <span class="title">Consignee Master</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/MasterMaintenance/CurrencyMaster") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "CurrencyMaster", new { area = "MasterMaintenance" })" class="nav-link">
+                        <i class="fa fa-money"></i>
+                        <span class="title">Currency Master</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/MasterMaintenance/ForeignExchangeRateMaster") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "ForeignExchangeRateMaster", new { area = "MasterMaintenance" })" class="nav-link">
+                        <i class="fa fa-dollar"></i>
+                        <span class="title">Foreign Exchange Rate</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+                <li class="nav-item @(Request.RawUrl.Contains("/MasterMaintenance/MonthlyClosingMaintenance") ? "active" : "") ">
+                    <a href="@Url.Action("Index", "MonthlyClosingMaintenance", new { area = "MasterMaintenance" })" class="nav-link">
+                        <i class="fa fa-calendar-times-o"></i>
+                        <span class="title">Monthly Closing</span>
+                        <span class="selected"></span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

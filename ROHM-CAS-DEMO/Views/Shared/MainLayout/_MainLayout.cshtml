@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title | ROHM Electronics Phils. Inc. | CAS </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="shortcut icon" href="/Content/images/favicon.ico" />
+    @RenderSection("css", required: false)
+    <link rel="stylesheet" href="/Content/assets/layouts/layout/css/themes/blue.min.css" type="text/css" id="style_color">
+</head>
+
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md">
+    @Html.Partial("~/Views/Shared/MainLayout/_HeaderPartial.cshtml")
+    <div class="clearfix"> </div>
+    <div class="page-container">
+        @Html.Partial("~/Views/Shared/MainLayout/_SidebarPartial.cshtml")
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                @Html.Partial("~/Views/Shared/MainLayout/_ThemePanel.cshtml")
+                <div class="page-bar">
+                    <h3 class="page-title font-green-sharp bold">
+                        <i class="@ViewBag.iconName"></i> @ViewBag.Title
+                    </h3>
+                </div>
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    @Html.Partial("~/Views/Shared/MainLayout/_QuickSideBar.cshtml")
+    @Html.Partial("~/Views/Shared/MainLayout/_FooterPartial.cshtml")
+    @Html.Partial("~/Views/Shared/MainLayout/_LoadingScreen.cshtml")
+    @Html.Partial("~/Views/Shared/MainLayout/_ErrorMsgScreen.cshtml")
+    <!--[if lt IE 9]>
+        <script src="../assets/global/plugins/respond.min.js"></script>
+        <script src="../assets/global/plugins/excanvas.min.js"></script>
+    <![endif]-->
+    @RenderSection("scripts", required: false)
+</body>
+</html>

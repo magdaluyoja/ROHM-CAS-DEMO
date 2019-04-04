@@ -51,6 +51,18 @@
             });
             return this;
         },
+        showError: function (msg) {
+            this.msgType = "error";
+            this.msgTitle = "Error!";
+            this.msg = msg;
+            this.showToastrMsg();
+        },
+        showSuccess: function (msg) {
+            this.msgType = "success";
+            this.msgTitle = "Success!";
+            this.msg = msg;
+            this.showToastrMsg();
+        },
         confirmAction: function () {
             var self = this;
             var promiseObj = new Promise(function (resolve, reject) {

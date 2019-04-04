@@ -8,69 +8,76 @@
         this.modList = {};
         this.UserModList = [];
         this.userList = {};
-        this.userTable = this.drawUserTable();
+        this.userTable = "";
         this.counter = 0;
     }
     User.prototype = {
         drawUserTable: function () {
-            return $('#tbl_users').DataTable({
-                processing: true,
-                serverSide: true,
-                "ajax": {
-                    "url": "/MasterMaintenance/UserMaster/GetUserList",
-                    "type": "POST",
-                    "datatype": "json"
-                },
-                dataSrc: "data",
-                columns: [
-                    { title: "User ID", data: "UserID" },
-                    { title: "First Name", data: "FirstName" },
-                    { title: "Middle Name", data: 'MiddleName' },
-                    { title: "Last Name", data: 'LastName' },
-                    {
-                        title: "Access Type",
-                        data: 'AccessType',
-                        render: function (data, type, row, meta) {
-                            switch (data) {
-                                case 1:
-                                    data = "System Admin";
-                                    break;
-                                case 2:
-                                    data = "Admin";
-                                    break;
-                                case 3:
-                                    data = "Production";
-                                    break;
-                                case 4:
-                                    data = "Test Dev";
-                                    break;
-                                default:
-                                    data = "n/a";
-                                    break;
-                            }
-                            return data;
-                        }
+            if (!$.fn.DataTable.isDataTable('#tbl_users')) {
+                return $('#tbl_users').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    "ajax": {
+                        "url": "/MasterMaintenance/UserMaster/GetUserList",
+                        "type": "POST",
+                        "datatype": "json"
                     },
-                    { title: "Division", data: 'REPIDiv' },
+                    dataSrc: "data",
+                    columns: [
+                        { title: "User ID", data: "UserID" },
+                        { title: "First Name", data: "FirstName" },
+                        { title: "Middle Name", data: 'MiddleName' },
+                        { title: "Last Name", data: 'LastName' },
+                        {
+                            title: "Access Type",
+                            data: 'AccessType',
+                            render: function (data, type, row, meta) {
+                                switch (data) {
+                                    case 1:
+                                        data = "System Admin";
+                                        break;
+                                    case 2:
+                                        data = "Admin";
+                                        break;
+                                    case 3:
+                                        data = "Production";
+                                        break;
+                                    case 4:
+                                        data = "Test Dev";
+                                        break;
+                                    default:
+                                        data = "n/a";
+                                        break;
+                                }
+                                return data;
+                            }
+                        },
+                        { title: "Division", data: 'REPIDiv' },
 
-                ],
-                "createdRow": function (row, data, dataIndex) {
-                    $(row).addClass('tr-data');
-                    $(row).attr('data-id', data.ID);
-                }
-            })
+                    ],
+                    "createdRow": function (row, data, dataIndex) {
+                        $(row).addClass('tr-data');
+                        $(row).attr('data-id', data.ID);
+                    }
+                })
+            } else {
+                this.showError("Please try again.");
+                return;
+            }
         },
-        populateData: function () {
+        populateData: function (formAction) {
             let self = this;
-            submitType = "GET";
-            self.jsonData = {};
-            self.formAction = '/MasterMaintenance/UserMaster/PopulateData';
-            self.sendData().then(function () {
-                self.makeSelect("REPIDiv", self.responseData.divList)
-                self.makeSelect("modID_0", self.responseData.modList);
-                self.modList = self.responseData.modList;
-                self.userList = self.responseData.userList;
-            });
+            self.formAction = formAction || "";
+            if (self.formAction) {
+                self.sendData().then(function () {
+                    self.makeSelect("REPIDiv", self.responseData.divList)
+                    self.makeSelect("modID_0", self.responseData.modList);
+                    self.modList = self.responseData.modList;
+                    self.userList = self.responseData.userList;
+                });
+            } else {
+                self.showError("Please try again.");
+            }
             return this;
         },
         addUser: function () {
@@ -109,20 +116,25 @@
             $("#tblDD tbody").append(html);
             return this;
         },
-        saveUser: function () {
+        saveUser: function (frmData) {
             let self = this;
-            self.formData = $('#frm_User').serializeArray();
-            if (self.editID) {
-                self.formAction = '/MasterMaintenance/UserMaster/UpdateUser';
+            self.formData = frmData || "";
+            if (self.formData) {
+
+                if (self.editID) {
+                    self.formAction = '/MasterMaintenance/UserMaster/UpdateUser';
+                } else {
+                    self.formAction = '/MasterMaintenance/UserMaster/SaveUser';
+                }
+                if (this.validateModules()) {
+                    // self.setJsonData() -> input with no "name" attribute will not be included.
+                    self.setJsonData().sendData().then(function (response) {
+                        self.clearUserData().resetBtns();
+                        self.userTable.ajax.reload(null, false);
+                    });
+                }
             } else {
-                self.formAction = '/MasterMaintenance/UserMaster/SaveUser';
-            }
-            if (this.validateModules()) {
-                // self.setJsonData() -> input with no name will not be included.
-                self.setJsonData().sendData().then(function (response) {
-                    self.clearUserData().resetBtns();
-                    self.userTable.ajax.reload(null, false);
-                });
+                self.showError("Please try again.");
             }
             return this;
         },
@@ -142,13 +154,17 @@
             }
             return this;
         },
-        editUserData: function () {
+        editUserData: function (formAction) {
             let self = this;
-            self.formAction = '/MasterMaintenance/UserMaster/GetUserDetails';
-            self.jsonData = { ID: self.editID };
-            self.sendData().then(function (response) {
-                self.populateUserDetails(self.responseData.userDetails);
-            });
+            self.formAction = formAction || "";
+            if (self.formAction) {
+                self.jsonData = { ID: self.editID };
+                self.sendData().then(function (response) {
+                    self.populateUserDetails(self.responseData.userDetails);
+                });
+            } else {
+                self.showError("Please try again.");
+            }
             return this;
         },
         populateUserDetails: function (userDetails) {
@@ -166,13 +182,17 @@
             $("#btn_save").text("Update User");
             return this;
         },
-        deleteUserData: function () {
+        deleteUserData: function (formAction) {
             let self = this;
-            self.formAction = '/MasterMaintenance/UserMaster/DeleteUser';
-            self.jsonData = { ID: this.editID };
-            self.sendData().then(function (response) {
-                self.userTable.ajax.reload(null, false);
-            });
+            self.formAction = formAction || "";
+            if (self.formAction) {
+                self.jsonData = { ID: this.editID };
+                self.sendData().then(function (response) {
+                    self.userTable.ajax.reload(null, false);
+                });
+            } else {
+                self.showError("Please try again.");
+            }
             return this;
         },
         removeModuleSelect: function (counter) {
@@ -201,10 +221,7 @@
                 });
             }
             if (error) {
-                self.msgType = "error";
-                self.msgTitle = "Error!";
-                self.msg = "Duplicate values.";
-                self.showToastrMsg();
+                self.showError("Duplicate values.");
                 $("#" + modId).val('');
                 $("#" + modId).addClass('input-error');
             }
@@ -217,10 +234,7 @@
                 $("#div-create-user > div.tabbable-custom > ul > li:nth-child(2)").addClass("active");
                 $(".tab-pane").removeClass("active");
                 $("#modules").addClass("active");
-                this.msgType = "error";
-                this.msgTitle = "Error!";
-                this.msg = "Please select at least one module.";
-                this.showToastrMsg();
+                this.showError("Please select at least one module.");
                 return false;
             }
             return true;

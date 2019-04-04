@@ -3,7 +3,7 @@
         return new DataClass.init(formData, formAction);
     }
     DataClass.init = function (formData, formAction) {
-        this.formData = formData || {};
+        this.formData = formData || "";
         this.formAction = formAction || "";
         this.jsonData = {};
         this.submitType = "POST";
@@ -15,20 +15,28 @@
         setJsonData: function () {
             let self = this;
             this.jsonData = {};
-            $.each(self.formData, function () {
-                if (self.jsonData[this.name]) {
-                    if (!self.jsonData[this.name].push) {
-                        self.jsonData[this.name] = [self.jsonData[this.name]];
+            if (self.formData) {
+                $.each(self.formData, function () {
+                    if (self.jsonData[this.name]) {
+                        if (!self.jsonData[this.name].push) {
+                            self.jsonData[this.name] = [self.jsonData[this.name]];
+                        }
+                        self.jsonData[this.name].push(this.value || '');
+                    } else {
+                        self.jsonData[this.name] = this.value || '';
                     }
-                    self.jsonData[this.name].push(this.value || '');
-                } else {
-                    self.jsonData[this.name] = this.value || '';
-                }
-            });
+                });
+            } else {
+                self.showError("Please try again.");
+            }
             return this;
         },
         clearFromData: function (formID) {
             let self = this;
+            if (!formID) {
+                self.showError("Please try again.");
+                return;
+            }
             $.each($("#" + formID + " .input"), function () {
                 if ($(this).hasClass("input")) {
                     $(this).val("");
@@ -39,7 +47,13 @@
         },
         sendData: function () {
             let self = this;
+
             let promiseObj = new Promise(function (resolve, reject) {
+                if (!self.formAction) {
+                    self.showError("Please try again.");
+                    resolve(false);
+                    return;
+                }
                 $.ajax({
                     dataType: 'json',
                     type: self.submitType,
